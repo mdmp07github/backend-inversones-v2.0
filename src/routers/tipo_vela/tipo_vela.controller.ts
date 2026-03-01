@@ -1,34 +1,32 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpException, Query, Req } from '@nestjs/common';
 import { TipoVelaService } from './tipo_vela.service';
 import { CreateTipoVelaDto } from './dto/create-tipo_vela.dto';
 import { UpdateTipoVelaDto } from './dto/update-tipo_vela.dto';
+import { Response } from 'express';
 
 @Controller('tipo-vela')
 export class TipoVelaController {
-  constructor(private readonly tipoVelaService: TipoVelaService) {}
+  constructor(private readonly tipo_vela_service: TipoVelaService) { }
 
-  @Post()
-  create(@Body() createTipoVelaDto: CreateTipoVelaDto) {
-    return this.tipoVelaService.create(createTipoVelaDto);
+  @Get('/list-all')
+  async controlador_tdv_gtt(@Res({ passthrough: true }) res: Response) {
+    try {
+      const o_response = await this.tipo_vela_service.servicio_tdv_gtt();
+      res.status(o_response.statusCode);
+      return o_response;
+    } catch (error) {
+      throw new HttpException(error.response, error.statusCode);
+    }
   }
 
-  @Get()
-  findAll() {
-    return this.tipoVelaService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tipoVelaService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTipoVelaDto: UpdateTipoVelaDto) {
-    return this.tipoVelaService.update(+id, updateTipoVelaDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tipoVelaService.remove(+id);
+  @Post('/insert')
+  async controlador_tdv_ins(@Body() s_obj: CreateTipoVelaDto, @Res({ passthrough: true }) res: Response) {
+    try {
+      const o_response = await this.tipo_vela_service.servicio_tdv_ins(s_obj);
+      res.status(o_response.statusCode)
+      return o_response;
+    } catch (error) {
+      throw new HttpException(error.response, error.statusCode);
+    }
   }
 }

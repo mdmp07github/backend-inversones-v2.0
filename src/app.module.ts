@@ -56,6 +56,12 @@ export class AppModule implements NestModule {
       /* router usuario */
       { path: '/usuario/list-one', method: RequestMethod.GET },
       { path: '/usuario/update/:id', method: RequestMethod.PATCH },
+      /* Entidad */
+      { path: '/entidad/list-all', method: RequestMethod.GET },
+      { path: '/entidad/list-one/:id', method: RequestMethod.GET },
+      { path: '/entidad/insert', method: RequestMethod.POST },
+      { path: '/entidad/update/:id', method: RequestMethod.PATCH },
+      { path: '/entidad/delete/:id', method: RequestMethod.DELETE },
     )
   }
 }
