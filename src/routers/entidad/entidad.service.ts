@@ -5,6 +5,7 @@ import { entity_entidad } from './entities/entidad.entity';
 import { entity_usuario } from '../usuario/entities/usuario.entity';
 import { v4 as uuidv4 } from 'uuid';
 import type { Request } from 'express';
+import { Op } from "sequelize";
 
 const o_page = "1";
 const o_offset = 0;
@@ -51,6 +52,96 @@ export class EntidadService {
         error: "Solicitud incorrecta",
         statusCode: 400
       }
+    }
+  }
+
+  async servicio_ent_gtf(s_ent_ent_cod: string, s_ent_ent_nom: string, s_ent_ent_des: string, s_ent_ent_tdv: string, s_ent_ent_pos: string, s_ent_ent_fei: string, s_ent_ent_fef: string, s_ent_ent_ano: string, s_req: Request) {
+
+    let o_res = {};
+    try {
+
+      const o_obj_usu_correo = await entity_usuario.findAll({
+        attributes: ['usu_usu_eml'],
+        where: {
+          id: s_req.user.id
+        }
+      });
+
+      if (!o_obj_usu_correo) {
+        return {
+          message: ["Usuario no autorizado"],
+          statusCode: 401
+        };
+      }
+
+      let o_condiciones: any = {
+        ent_ent_usu: o_obj_usu_correo[0].dataValues.usu_usu_eml
+      };
+
+      if (s_ent_ent_cod && s_ent_ent_cod !== "0") {
+        o_condiciones.ent_ent_cod = s_ent_ent_cod;
+      }
+
+      if (s_ent_ent_nom && s_ent_ent_nom !== "0") {
+        o_condiciones.ent_ent_nom = {
+          [Op.like]: `%${s_ent_ent_nom}%`
+        };
+      }
+
+      if (s_ent_ent_des && s_ent_ent_des !== "0") {
+        o_condiciones.ent_ent_des = {
+          [Op.like]: `%${s_ent_ent_des}%`
+        };
+      }
+
+      if (s_ent_ent_tdv && s_ent_ent_tdv !== "0") {
+        o_condiciones.ent_ent_tdv = s_ent_ent_tdv;
+      }
+
+      if (s_ent_ent_pos && s_ent_ent_pos !== "0") {
+        o_condiciones.ent_ent_pos = s_ent_ent_pos;
+      }
+
+      if (s_ent_ent_fei && s_ent_ent_fei !== "0" && s_ent_ent_fef && s_ent_ent_fef !== "0") {
+        o_condiciones.ent_ent_fdr = {
+          [Op.between]: [s_ent_ent_fei, s_ent_ent_fef]
+        };
+      }
+
+      if (s_ent_ent_fei && s_ent_ent_fei !== "0" && s_ent_ent_fef === "0") {
+        o_condiciones.ent_ent_fdr = {
+          [Op.gte]: s_ent_ent_fei
+        };
+      }
+
+      if (s_ent_ent_fei === "0" && s_ent_ent_fef && s_ent_ent_fef !== "0") {
+        o_condiciones.ent_ent_fdr = {
+          [Op.lte]: s_ent_ent_fef
+        };
+      }
+
+      if (s_ent_ent_ano && s_ent_ent_ano !== "0") {
+        o_condiciones.ent_ent_ano = s_ent_ent_ano;
+      }
+
+      const o_obj = await entity_entidad.findAndCountAll({
+        where: o_condiciones,
+        order: [['createdAt', 'DESC']]
+      });
+
+      return o_res = {
+        message: o_obj.count === 0 ? ["No se encontró ningún registro"] : ["Lista de registros"],
+        statusCode: 200,
+        result: o_obj
+      };
+
+    } catch (error) {
+      console.error(error);
+      return o_res = {
+        message: [error.message],
+        error: "Solicitud incorrecta",
+        statusCode: 400
+      };
     }
   }
 
@@ -204,7 +295,7 @@ export class EntidadService {
     let o_res = {};
     try {
 
-      const { ent_ent_cod, ent_ent_des, ent_ent_fdr, ent_ent_hdr, ent_ent_ano } = s_obj;
+      const { ent_ent_cod, ent_ent_nom, ent_ent_des, ent_ent_tdv, ent_ent_pos, ent_ent_fdr, ent_ent_hdr, ent_ent_ano } = s_obj;
       let o_id = uuidv4();
 
       const o_obj_usu_correo = await entity_usuario.findAll({
@@ -232,7 +323,10 @@ export class EntidadService {
       await entity_entidad.create({
         id: o_id,
         ent_ent_cod: ent_ent_cod,
+        ent_ent_nom: ent_ent_nom,
         ent_ent_des: ent_ent_des,
+        ent_ent_tdv: ent_ent_tdv,
+        ent_ent_pos: ent_ent_pos,
         ent_ent_fdr: ent_ent_fdr,
         ent_ent_hdr: ent_ent_hdr,
         ent_ent_ano: ent_ent_ano,
@@ -255,7 +349,10 @@ export class EntidadService {
         result: {
           id: o_obj_d.dataValues.id,
           ent_ent_cod: o_obj_d.dataValues.ent_ent_cod,
+          ent_ent_nom: o_obj_d.dataValues.ent_ent_nom,
           ent_ent_des: o_obj_d.dataValues.ent_ent_des,
+          ent_ent_tdv: o_obj_d.dataValues.ent_ent_tdv,
+          ent_ent_pos: o_obj_d.dataValues.ent_ent_pos,
           ent_ent_fdr: o_obj_d.dataValues.ent_ent_fdr,
           ent_ent_hdr: o_obj_d.dataValues.ent_ent_hdr,
           ent_ent_ano: o_obj_d.dataValues.ent_ent_ano,
@@ -322,7 +419,10 @@ export class EntidadService {
         result: {
           id: o_obj_d.dataValues.id,
           ent_ent_cod: o_obj_d.dataValues.ent_ent_cod,
+          ent_ent_nom: o_obj_d.dataValues.ent_ent_nom,
           ent_ent_des: o_obj_d.dataValues.ent_ent_des,
+          ent_ent_tdv: o_obj_d.dataValues.ent_ent_tdv,
+          ent_ent_pos: o_obj_d.dataValues.ent_ent_pos,
           ent_ent_fdr: o_obj_d.dataValues.ent_ent_fdr,
           ent_ent_hdr: o_obj_d.dataValues.ent_ent_hdr,
           ent_ent_ano: o_obj_d.dataValues.ent_ent_ano,

@@ -9,10 +9,27 @@ const entity_entidad = sequelize.define("tb_entidad", {
     ent_ent_cod: {
         type: DataTypes.STRING(10),
         allowNull: false,
-        unique: true
+        unique: false
+    },
+    ent_ent_nom: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        unique: false,
+        defaultValue: ""
     },
     ent_ent_des: {
         type: DataTypes.STRING(1000),
+        allowNull: true,
+        unique: false,
+        defaultValue: ""
+    },
+    ent_ent_tdv: {
+        type: DataTypes.STRING(36),
+        allowNull: false,
+        unique: false
+    },
+    ent_ent_pos: {
+        type: DataTypes.STRING(1),
         allowNull: false,
         unique: false
     },
@@ -24,7 +41,7 @@ const entity_entidad = sequelize.define("tb_entidad", {
     ent_ent_hdr: {
         type: DataTypes.STRING(5),
         allowNull: false,
-        unique: true
+        unique: false
     },
     ent_ent_ano: {
         type: DataTypes.STRING(4),

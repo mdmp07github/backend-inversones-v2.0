@@ -23,6 +23,16 @@ export class CreateTipoVelaDto {
     @IsNotEmpty({ message: 'El campo "Color" no debe estar vacio.' })
     tdv_tdv_col: string
 
+    @MaxLength(7, { message: 'El campo "Color de fondo" debe tener máximo 7 carácteres.' })
+    @IsString({ message: 'El campo "Color de fondo" debe ser de tipo string.' })
+    @IsNotEmpty({ message: 'El campo "Color de fondo" no debe estar vacio.' })
+    tdv_tdv_cdf: string
+
+    @MaxLength(7, { message: 'El campo "Color de texto" debe tener máximo 7 carácteres.' })
+    @IsString({ message: 'El campo "Color de texto" debe ser de tipo string.' })
+    @IsNotEmpty({ message: 'El campo "Color de texto" no debe estar vacio.' })
+    tdv_tdv_cdt: string
+
     @MaxLength(2, { message: 'El campo "Prioridad" debe tener máximo 2 carácteres.' })
     @IsString({ message: 'El campo "Prioridad" debe ser de tipo string.' })
     @IsNotEmpty({ message: 'El campo "Prioridad" no debe estar vacio.' })

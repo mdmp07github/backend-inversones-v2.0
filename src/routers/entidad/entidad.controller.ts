@@ -84,4 +84,26 @@ export class EntidadController {
       throw new HttpException(error.response, error.statusCode);
     }
   }
+
+  @Get('/list-filter/:P1/:P2/:P3/:P4/:P5/:P6/:P7/:P8')
+  async controlador_ent_gtf(
+    @Req() req: Request, 
+    @Param('P1') ent_ent_cod: string,
+    @Param('P2') ent_ent_nom: string,
+    @Param('P3') ent_ent_des: string,
+    @Param('P4') ent_ent_tdv: string,
+    @Param('P5') ent_ent_pos: string,
+    @Param('P6') ent_ent_fei: string,
+    @Param('P7') ent_ent_fef: string,
+    @Param('P8') ent_ent_ano: string,
+    @Res({ passthrough: true }) res: Response
+  ) {
+    try {
+      const o_response = await this.entidad_service.servicio_ent_gtf(ent_ent_cod, ent_ent_nom, ent_ent_des, ent_ent_tdv, ent_ent_pos, ent_ent_fei, ent_ent_fef, ent_ent_ano, req);
+      res.status(o_response.statusCode);
+      return o_response;
+    } catch (error) {
+      throw new HttpException(error.response, error.statusCode);
+    }
+  }
 }

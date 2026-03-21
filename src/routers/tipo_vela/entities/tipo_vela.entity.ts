@@ -14,7 +14,7 @@ const entity_tipo_vela = sequelize.define("tb_tipo_vela", {
     tdv_tdv_des: {
         type: DataTypes.STRING(50),
         allowNull: false,
-        unique: true
+        unique: false
     },
     tdv_tdv_sbl: {
         type: DataTypes.STRING(10),
@@ -24,6 +24,16 @@ const entity_tipo_vela = sequelize.define("tb_tipo_vela", {
     tdv_tdv_col: {
         type: DataTypes.STRING(20),
         allowNull: false,
+        unique: false
+    },
+    tdv_tdv_cdf: {
+        type: DataTypes.STRING(7),
+        allowNull: true,
+        unique: false
+    },
+    tdv_tdv_cdt: {
+        type: DataTypes.STRING(7),
+        allowNull: true,
         unique: false
     },
     tdv_tdv_prd: {
