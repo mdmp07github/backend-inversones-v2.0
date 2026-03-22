@@ -33,6 +33,12 @@ const entity_entidad = sequelize.define("tb_entidad", {
         allowNull: false,
         unique: false
     },
+    ent_ent_val: {
+        type: DataTypes.STRING(15),
+        allowNull: false,
+        unique: false,
+        defaultValue: "0"
+    },
     ent_ent_fdr: {
         type: DataTypes.STRING(10),
         allowNull: false,

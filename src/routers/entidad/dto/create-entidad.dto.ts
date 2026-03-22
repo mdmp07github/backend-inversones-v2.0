@@ -26,6 +26,11 @@ export class CreateEntidadDto {
     @IsNotEmpty({ message: 'El campo "Posición" no debe estar vacio.' })
     ent_ent_pos: string
 
+    @MaxLength(15, { message: 'El campo "Valor" debe tener máximo 15 carácteres.' })
+    @IsString({ message: 'El campo "Valor" debe ser de tipo string.' })
+    @IsNotEmpty({ message: 'El campo "Valor" no debe estar vacio.' })
+    ent_ent_val: string
+
     @MaxLength(10, { message: 'El campo "Fecha de Registro" debe tener máximo 10 carácteres.' })
     @IsString({ message: 'El campo "Fecha de Registro" debe ser de tipo string.' })
     @IsNotEmpty({ message: 'El campo "Fecha de Registro" no debe estar vacio.' })

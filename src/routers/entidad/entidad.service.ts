@@ -295,7 +295,7 @@ export class EntidadService {
     let o_res = {};
     try {
 
-      const { ent_ent_cod, ent_ent_nom, ent_ent_des, ent_ent_tdv, ent_ent_pos, ent_ent_fdr, ent_ent_hdr, ent_ent_ano } = s_obj;
+      const { ent_ent_cod, ent_ent_nom, ent_ent_des, ent_ent_tdv, ent_ent_pos, ent_ent_val, ent_ent_fdr, ent_ent_hdr, ent_ent_ano } = s_obj;
       let o_id = uuidv4();
 
       const o_obj_usu_correo = await entity_usuario.findAll({
@@ -327,6 +327,7 @@ export class EntidadService {
         ent_ent_des: ent_ent_des,
         ent_ent_tdv: ent_ent_tdv,
         ent_ent_pos: ent_ent_pos,
+        ent_ent_val: ent_ent_val,
         ent_ent_fdr: ent_ent_fdr,
         ent_ent_hdr: ent_ent_hdr,
         ent_ent_ano: ent_ent_ano,
@@ -353,6 +354,7 @@ export class EntidadService {
           ent_ent_des: o_obj_d.dataValues.ent_ent_des,
           ent_ent_tdv: o_obj_d.dataValues.ent_ent_tdv,
           ent_ent_pos: o_obj_d.dataValues.ent_ent_pos,
+          ent_ent_val: o_obj_d.dataValues.ent_ent_val,
           ent_ent_fdr: o_obj_d.dataValues.ent_ent_fdr,
           ent_ent_hdr: o_obj_d.dataValues.ent_ent_hdr,
           ent_ent_ano: o_obj_d.dataValues.ent_ent_ano,
@@ -423,6 +425,7 @@ export class EntidadService {
           ent_ent_des: o_obj_d.dataValues.ent_ent_des,
           ent_ent_tdv: o_obj_d.dataValues.ent_ent_tdv,
           ent_ent_pos: o_obj_d.dataValues.ent_ent_pos,
+          ent_ent_val: o_obj_d.dataValues.ent_ent_val,
           ent_ent_fdr: o_obj_d.dataValues.ent_ent_fdr,
           ent_ent_hdr: o_obj_d.dataValues.ent_ent_hdr,
           ent_ent_ano: o_obj_d.dataValues.ent_ent_ano,

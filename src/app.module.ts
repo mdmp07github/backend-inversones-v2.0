@@ -42,10 +42,10 @@ import { ImagenesModule } from './routers/imagenes/imagenes.module';
     ImagenesModule
   ],
   controllers: [],
-  providers: [{
+  /* providers: [{
     provide: APP_GUARD,
     useClass: ThrottlerCustomGuard,
-  }],
+  }], */
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
@@ -58,7 +58,7 @@ export class AppModule implements NestModule {
       { path: '/usuario/update/:id', method: RequestMethod.PATCH },
       /* Entidad */
       { path: '/entidad/list-all', method: RequestMethod.GET },
-      { path: '/entidad/list-filter/:P1/:P2/:P3/:P4/:P5/:P6/:P7/:P8', method: RequestMethod.GET },
+      { path: '/entidad/filter/:P1/:P2/:P3/:P4/:P5/:P6/:P7/:P8', method: RequestMethod.GET },
       { path: '/entidad/list-one/:id', method: RequestMethod.GET },
       { path: '/entidad/insert', method: RequestMethod.POST },
       { path: '/entidad/update/:id', method: RequestMethod.PATCH },

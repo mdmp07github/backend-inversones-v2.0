@@ -85,7 +85,7 @@ export class EntidadController {
     }
   }
 
-  @Get('/list-filter/:P1/:P2/:P3/:P4/:P5/:P6/:P7/:P8')
+  @Get('/filter/:P1/:P2/:P3/:P4/:P5/:P6/:P7/:P8')
   async controlador_ent_gtf(
     @Req() req: Request, 
     @Param('P1') ent_ent_cod: string,
