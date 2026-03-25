@@ -12,7 +12,7 @@ export class CreateEntidadDto {
     @IsString({ message: 'El campo "Nombre" debe ser de tipo string.' })
     ent_ent_nom?: string
 
-    @MaxLength(1000, { message: 'El campo "Descripción" debe tener máximo 1000 carácteres.' })
+    @MaxLength(10000, { message: 'El campo "Descripción" debe tener máximo 10000 carácteres.' })
     @IsString({ message: 'El campo "Descripción" debe ser de tipo string.' })
     ent_ent_des?: string
 

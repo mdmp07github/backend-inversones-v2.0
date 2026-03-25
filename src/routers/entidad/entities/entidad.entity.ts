@@ -18,7 +18,7 @@ const entity_entidad = sequelize.define("tb_entidad", {
         defaultValue: ""
     },
     ent_ent_des: {
-        type: DataTypes.STRING(1000),
+        type: DataTypes.STRING(10000),
         allowNull: true,
         unique: false,
         defaultValue: ""
